@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#carousal{
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.carousel-item img{
+  max-height: 500px;
+  object-fit: contain;
+  margin-top: 25px;
+  /* filter: brightness(30%); */
+  border-radius: 15px;
+}
+
+#searchBox{
+  margin: 10px;
+}

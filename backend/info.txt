@@ -1,0 +1,173 @@
+// index.js
+const connectToMongo = require('./db');
+const mongoose = require('mongoose');
+
+const fetchFoodItems = async () => {
+    try {
+        const db = mongoose.connection.useDb("GoFoodItems");  // Specify GoFoodItem database
+        const fetched_data = db.collection("food_items");
+        
+        // Fetch all documents in food_items collection
+        const data = await fetched_data.find({}).toArray();
+
+        if (data.length === 0) {
+            console.log("The collection 'food_items' is empty.");
+        } else {
+            console.log("Fetched Data:", data);
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+
+// Connect to MongoDB and then fetch data
+connectToMongo().then(() => fetchFoodItems());
+
+
+
+
+// db.js
+
+const mongoose = require('mongoose');
+const mongoURI = 'mongodb://localhost:27017/gofoodmern'; // Connection URI
+// mongodb://localhost:27017/
+
+const connectToMongo = async () => {
+    try {
+        await mongoose.connect(mongoURI);
+        console.log("MongoDB (Mongoose) database connected successfully to gofoodmern");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+    }
+};
+
+const fetchfoodCategory = async () => {
+    try {
+        const db = mongoose.connection.useDb("GoFoodItems"); // Specify GoFoodItems Database
+        const fetched_dataFC = db.collection("foodCategory");
+        console.log();
+        console.log();
+        console.log("Displaying all Food Category : ");
+
+        // Fetch all documents in food_items collection
+        const dataFC = await fetched_dataFC.find({}).toArray();
+
+        if (dataFC.length === 0) {
+            console.log("The collection 'food_items' is empty.");
+        } else {
+            // console.log("Fetched Data:", dataFC);
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+ };
+
+ const fetchFoodItems = async () => {
+    try {
+        const db = mongoose.connection.useDb("GoFoodItems");  // Specify GoFoodItem database
+        const fetched_data = db.collection("food_items");
+        // const fetched_dataFC = db.collection("foodCategory");
+
+        console.log();
+        console.log();
+        console.log("Displaying all Food Items : ");
+        
+        // Fetch all documents in food_items collection
+        const data = await fetched_data.find({}).toArray();
+
+        if (data.length === 0) {
+            console.log("The collection 'food_items' is empty.");
+        } else {
+            // console.log("Fetched Data:", data);
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+ 
+};
+
+connectToMongo().then(async () => {
+    await fetchfoodCategory();
+    await fetchFoodItems();
+});
+
+//  connectToMongo().then(() => fetchfoodCategory ());
+
+module.exports = connectToMongo;
+
+
+//Home.jsx
+
+import React, { useEffect, useState } from 'react';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
+import Card from '../Components/Card';
+import Carousal from '../Components/Carousal';
+
+function Home() {
+  const [foodCat, setFoodCat] = useState([]); // Corrected to useState
+  const [foodItem, setFoodItem] = useState([]); // Corrected to useState
+
+  const loadData = async () => {
+    try {
+      let response = await fetch("localhost:5000/api/foodData", { // Added protocol  http://localhost:5000/api/foodData
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      response = await response.json();
+      setFoodItem(response[0]);
+      setFoodCat(response[1]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  return (
+    <div>
+      <div><Navbar /></div>
+      <div><Carousal /></div>
+      <div className='container'>
+        {
+          foodCat.length > 0 // Corrected comparison to check length
+            ? foodCat.map((data) => {
+              return <div>
+              <div key={data._id} className='fs-3 m-3' > {/* Added key for map */}
+              {data.CategoryName}
+            </div>
+              <hr />
+              { foodItem.length > 0 //foodItem !== []
+              ? foodItem.filter((item) => item.CategoryName === data.CategoryName).map(filterItems=>{
+                return (
+                  <div  key={filterItems._id} >
+                    <Card/>
+                  </div>
+                )
+              })
+               : <div>No such Data Found</div> } 
+
+            </div>
+            }   
+            )
+            : ".........."
+        }
+        <Card />
+      </div>
+      <div style={{ color: 'whitesmoke' }}><Footer /></div>
+    </div>
+  );
+}
+
+export default Home;
+
+
+// error : around 18 minutes
+
+// 42 minutes
+
+// main code
