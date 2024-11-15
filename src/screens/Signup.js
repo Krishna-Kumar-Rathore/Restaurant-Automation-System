@@ -27,6 +27,7 @@ function Signup() {
 
   return (
     <>
+    <h1 className='text-center text-white-50'>SIGNUP PAGE</h1>
     <div className='container'>
       <form onSubmit={handleSubmit}>
             <div className ="mb-3">

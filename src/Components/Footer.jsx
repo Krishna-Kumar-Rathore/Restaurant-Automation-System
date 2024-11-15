@@ -9,7 +9,7 @@ export default function Footer() {
       <Link to="/" className="mb-3 me-2 mb-md-0 text-muted lh-1">
         
       </Link>
-      <span className="text-muted text-red bg-white" style={{color : 'blue !important', textAlign: 'center'}} >© 2024 RAS All Right Reseved, Krishna Kumar Rathore</span>
+      <span className="text-muted text-red bg-white" style={{color : 'blue !important', textAlign: 'center' , margin : " 0 auto"}} >© 2024 RAS All Right Reseved, Krishna Kumar Rathore</span>
     </div>
 
   </footer>

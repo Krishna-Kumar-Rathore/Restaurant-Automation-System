@@ -25,7 +25,9 @@ app.use((req,res,next)=>{
 
 app.use(express.json())
 app.use('/api', require("./Routes/CreateUser"));
-app.use('/api', require("./Routes/DisplayData")); // Error is coming due to this statement
+app.use('/api', require("./Routes/DisplayData")); 
+
+// app.use('/api', require("./Routes/OrderData")); // Error is coming from this statement
 
 app.use('/api', require("./Routes/AddFoodItem"));
 app.use('/api', require("./Routes/AddFoodCategory"));

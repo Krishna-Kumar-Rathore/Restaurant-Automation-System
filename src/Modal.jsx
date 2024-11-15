@@ -41,5 +41,6 @@ export default function Modal({ children, onClose }) {
       </div>
     </>,
     document.getElementById('cart-root')
-  )
+  ) 
 }
+// () =>{console.log("HI")} 

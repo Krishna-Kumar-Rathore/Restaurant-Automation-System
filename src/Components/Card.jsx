@@ -8,11 +8,36 @@ export default function Card(props) {
     const priceRef = useRef();
     let options = props.options;
     let priceOptions = Object.keys(options);
-    // let foodItem = props.foodItems; //fooditems foodItem 
+    let foodItem = props.foodItems; //fooditems foodItem 
     const[qty, setQty] = useState(1);
     const [size,setSize] = useState("");
 
-    const handleAddToCart = async ()=>{
+    const handleAddToCart = async ()=>{ 
+        let food = []
+        for(const item of data){
+            if(item._id === props.foodItem._id){ // Error statement
+                food = item;
+
+                break;
+            }
+        }
+
+    console.log(food)
+    console.log(new Date())
+    if (food.length !== 0) {
+      if (food.size === size) {
+        await dispatch({ type: "UPDATE", id: foodItem._id, price: finalPrice, qty: qty })
+        return
+      }
+      else if (food.size !== size) {
+        await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size,img: props.ImgSrc })
+        console.log("Size different so simply ADD one more to the list")
+        return
+      }
+      return
+    }
+    // await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size })
+
         await dispatch({type : "ADD",id:props.foodItem._id, name:props.foodItem.name,price: finalPrice , qty:qty, size : size});
         console.log(data);
     }
@@ -26,7 +51,7 @@ export default function Card(props) {
   return (
     <div>
         <div>
-            <div className="card mt-3" style= {{"width" : "18rem" , "maxHeight" : "400px"}} >
+            <div className="card mt-3" style= {{"width" : "18rem" , "Height" : "400px"}} >
                 <img className="card-img-top" src={props.foodItem.img} alt="img not displayed" style={{objectFit: "fill" , margin: "3px" , height : '180px'}}/>
                 <div className="card-body">
                     <h5 className="card-title">{props.foodItem.name}</h5>

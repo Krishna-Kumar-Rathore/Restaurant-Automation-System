@@ -25,7 +25,7 @@ export default function Cart() {
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
     // console.log(data,localStorage.getItem("userEmail"),new Date())
-    let response = await fetch("http://localhost:5000/api/auth/orderData", {
+    let response = await fetch("http://localhost:5000/api/orderData", {
       // credentials: 'include',
       // Origin:"http://localhost:3000/login",
       method: 'POST',
@@ -38,7 +38,7 @@ export default function Cart() {
         order_date: new Date().toDateString()
       })
     });
-    console.log("JSON RESPONSE:::::", response.status)
+    console.log("Order RESPONSE:::::", response.status)
     if (response.status === 200) {
       dispatch({ type: "DROP" })
     }
@@ -69,14 +69,14 @@ export default function Cart() {
                 <td>{food.qty}</td>
                 <td>{food.size}</td>
                 <td>{food.price}</td>
-                <td ><button type="button" className="btn p-0"></button>  <img src={trash} alt = "delete" onclick={() =>{dispatch({type: "REMOVE", index: index})}} /> </td>
+                <td ><button type="button" className="btn p-0"><img src={trash} alt = "delete" onClick={() =>{dispatch({type: "REMOVE", index: index})}} /></button>   </td>
                 {/* <Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /> */}
                 
                 </tr>
             ))}
           </tbody>
         </table>
-        <div><h1 className='fs-2'>Total Price: {totalPrice}/-</h1></div>
+        <div><h1 className='fs-2 text-white'>Total Price: {totalPrice}/-</h1></div>
         <div>
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>

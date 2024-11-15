@@ -21,6 +21,7 @@ export default function Login() {
         }
 
         if(json.success){
+          localStorage.setItem("userEmail",credentials.email);
           localStorage.setItem("authToken",json.authToken);
           console.log(localStorage.getItem("authToken"));
           navigate("/");
@@ -32,7 +33,8 @@ export default function Login() {
     }
   return (
     <>
-    <div className='container'>
+    <h1 className='text-center text-white-50'>LOGIN PAGE</h1>
+    <div className='container '>
       <form onSubmit={handleSubmit}>
             <div className ="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label text-white">Email address</label>
