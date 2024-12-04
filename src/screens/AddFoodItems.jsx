@@ -43,25 +43,29 @@ function AddFoodItems() {
 
   return (
     <>
-      <>
-        {/* <h1 className="text-white">Hello foodItems</h1> */}
-      </>
+      <>{/* <h1 className="text-white">Hello foodItems</h1> */}</>
+      
       <div className="container mt-4">
         <h2 className="text-white text-center">Add Food Item</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className='text-white'>Category Name</label>
-            <input
-              type="text"
+            <label className="text-white">Category Name</label>
+            <select
               className="form-control"
               name="CategoryName"
               value={foodItem.CategoryName}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Category</option>
+              <option value="Biryani/Rice">Biryani/Rice</option>
+              <option value="Starter">Starter</option>
+              <option value="Pizza">Pizza</option>
+              <option value="Beverage">Beverage</option>
+            </select>
           </div>
 
           <div className="form-group">
-            <label className='text-white'>Food Name</label>
+            <label className="text-white">Food Name</label>
             <input
               type="text"
               className="form-control"
@@ -73,7 +77,7 @@ function AddFoodItems() {
           </div>
 
           <div className="form-group">
-            <label className='text-white'>Image URL</label>
+            <label className="text-white">Image URL</label>
             <input
               type="text"
               className="form-control"
@@ -85,7 +89,7 @@ function AddFoodItems() {
           </div>
 
           <div className="form-group">
-            <label className='text-white'>Options (comma-separated)</label>
+            <label className="text-white">Options (comma-separated)</label>
             <input
               type="text"
               className="form-control"
@@ -96,7 +100,7 @@ function AddFoodItems() {
           </div>
 
           <div className="form-group">
-            <label className='text-white'>Description</label>
+            <label className="text-white">Description</label>
             <textarea
               className="form-control"
               name="description"

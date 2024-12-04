@@ -15,6 +15,6 @@ const OrderSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('order', OrderSchema)
+module.exports = mongoose.model('order', OrderSchema);
 
 // module.exports = mongoose.model('User',UserSchema)

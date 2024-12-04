@@ -1,173 +1,139 @@
-// index.js
-const connectToMongo = require('./db');
-const mongoose = require('mongoose');
+// lets start fresh
 
-const fetchFoodItems = async () => {
-    try {
-        const db = mongoose.connection.useDb("GoFoodItems");  // Specify GoFoodItem database
-        const fetched_data = db.collection("food_items");
-        
-        // Fetch all documents in food_items collection
-        const data = await fetched_data.find({}).toArray();
+// signup page  import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
-        if (data.length === 0) {
-            console.log("The collection 'food_items' is empty.");
-        } else {
-            console.log("Fetched Data:", data);
+function Signup() {
+    const [credentials,setcredentials] = useState({name:"",email:"",password:"",geolocation:""})
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        const response = await fetch("http://localhost:5000/api/createuser",{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        } ,
+        body:JSON.stringify({name:credentials.name, email:credentials.email,password:credentials.password,location:credentials.geolocation})   
+        });
+        const json = await response.json();
+        console.log(json);
+
+        if(!json.success){
+            alert("Enter Valid Credentials");
         }
-    } catch (error) {
-        console.error("Error fetching data:", error);
     }
-};
 
-// Connect to MongoDB and then fetch data
-connectToMongo().then(() => fetchFoodItems());
-
-
-
-
-// db.js
-
-const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/gofoodmern'; // Connection URI
-// mongodb://localhost:27017/
-
-const connectToMongo = async () => {
-    try {
-        await mongoose.connect(mongoURI);
-        console.log("MongoDB (Mongoose) database connected successfully to gofoodmern");
-    } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
+    const onChange=(event)=>{
+        setcredentials({...credentials,[event.target.name]: event.target.value})
     }
-};
-
-const fetchfoodCategory = async () => {
-    try {
-        const db = mongoose.connection.useDb("GoFoodItems"); // Specify GoFoodItems Database
-        const fetched_dataFC = db.collection("foodCategory");
-        console.log();
-        console.log();
-        console.log("Displaying all Food Category : ");
-
-        // Fetch all documents in food_items collection
-        const dataFC = await fetched_dataFC.find({}).toArray();
-
-        if (dataFC.length === 0) {
-            console.log("The collection 'food_items' is empty.");
-        } else {
-            // console.log("Fetched Data:", dataFC);
-        }
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
- };
-
- const fetchFoodItems = async () => {
-    try {
-        const db = mongoose.connection.useDb("GoFoodItems");  // Specify GoFoodItem database
-        const fetched_data = db.collection("food_items");
-        // const fetched_dataFC = db.collection("foodCategory");
-
-        console.log();
-        console.log();
-        console.log("Displaying all Food Items : ");
-        
-        // Fetch all documents in food_items collection
-        const data = await fetched_data.find({}).toArray();
-
-        if (data.length === 0) {
-            console.log("The collection 'food_items' is empty.");
-        } else {
-            // console.log("Fetched Data:", data);
-        }
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
- 
-};
-
-connectToMongo().then(async () => {
-    await fetchfoodCategory();
-    await fetchFoodItems();
-});
-
-//  connectToMongo().then(() => fetchfoodCategory ());
-
-module.exports = connectToMongo;
-
-
-//Home.jsx
-
-import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
-import Card from '../Components/Card';
-import Carousal from '../Components/Carousal';
-
-function Home() {
-  const [foodCat, setFoodCat] = useState([]); // Corrected to useState
-  const [foodItem, setFoodItem] = useState([]); // Corrected to useState
-
-  const loadData = async () => {
-    try {
-      let response = await fetch("localhost:5000/api/foodData", { // Added protocol  http://localhost:5000/api/foodData
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      response = await response.json();
-      setFoodItem(response[0]);
-      setFoodCat(response[1]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    loadData();
-  }, []);
 
   return (
-    <div>
-      <div><Navbar /></div>
-      <div><Carousal /></div>
-      <div className='container'>
-        {
-          foodCat.length > 0 // Corrected comparison to check length
-            ? foodCat.map((data) => {
-              return <div>
-              <div key={data._id} className='fs-3 m-3' > {/* Added key for map */}
-              {data.CategoryName}
+    <>
+    <h1 className='text-center text-white-50'>SIGNUP PAGE</h1>
+    <div className='container'>
+      <form onSubmit={handleSubmit}>
+            <div className ="mb-3">
+            <label htmlFor="name" className="form-label text-white">Name</label>
+            <input type="text" className="form-control" name='name' value={credentials.name} onChange={onChange} />
             </div>
-              <hr />
-              { foodItem.length > 0 //foodItem !== []
-              ? foodItem.filter((item) => item.CategoryName === data.CategoryName).map(filterItems=>{
-                return (
-                  <div  key={filterItems._id} >
-                    <Card/>
-                  </div>
-                )
-              })
-               : <div>No such Data Found</div> } 
-
+            <div className ="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label text-white">Email address</label>
+                <input type="email" className="form-control" name='email' value={credentials.email} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={onChange} />
+                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
-            }   
-            )
-            : ".........."
-        }
-        <Card />
-      </div>
-      <div style={{ color: 'whitesmoke' }}><Footer /></div>
+            <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label text-white">Password</label>
+                <input type="password" className="form-control" name='password' value={credentials.password} id="exampleInputPassword1" onChange={onChange} />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label text-white">Address</label>
+                <input type="text" className="form-control" name='geolocation' value={credentials.geolocation} onChange={onChange} />
+            </div>
+        <button type="submit" className="btn btn-primary text-white">Submit</button>
+        <Link to="/login" className='m-3 btn btn-danger'>Already a user</Link>
+    </form>
     </div>
-  );
+    </>
+  )
 }
 
-export default Home;
+export default Signup
 
 
-// error : around 18 minutes
+// CreateUser.js
+// CreateUser.js
+const express = require('express')
+const router = express.Router()
+const User = require('../models/User.js')
+const { body, validationResult } = require('express-validator');
 
-// 42 minutes
+// const jwt  = require("jsonwebtoken");
+// Password Encryption related coded in not added in login & signup component. Reference : Lecture 8
+// const jwtSecret = "MynameisEndtoEndYoutubeChannel$#";
 
-// main code
+const bcrypt = require("bcryptjs");
+
+
+router.post("/createuser", 
+  [body('email','Invalid MailId').isEmail(),  // username must be an email
+    body('name','Minimun length of name is 5').isLength({ min: 5 }),
+  body('password','Incorrect Password').isLength({ min: 5 })], // password must be at least 5 chars long
+     async (req,res) =>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
+
+        // const salt = await bcrypt.genSalt(10);
+        // let secPassword = await bcrypt.hash(req.body.password , salt);
+
+    try {
+        let user = new User({
+            name : req.body.name,
+            password : req.body.password,
+            email : req.body.email,
+            location : req.body.location
+        })
+        let result=await user.save(user);
+        return res.json({user:result,sucess: true});
+    } catch (error) {
+        console.log(error)
+        res.json({sucess:false});
+    }
+
+})
+
+router.post("/loginuser", [body('email','Invalid MailId').isEmail(),  // username must be an email
+  body('password','Incorrect Password').isLength({ min: 5 })], 
+  async (req,res) =>{
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
+
+         
+    let email = req.body.email ;
+      try {
+           let userData =  await User.findOne({email});
+            if(!userData){
+                return res.status(400).json({ errors: "Try login with correct credentials" });
+            }
+
+            if(req.body.password !== userData.password){
+                return res.status(400).json({ errors: "Try login with correct credentials" });
+            }
+
+            return res.json({ success : true });
+
+    } catch (error) {
+        console.log(error)
+        res.json({sucess:false});
+    }
+ })
+
+
+
+module.exports = router;
+
+
+

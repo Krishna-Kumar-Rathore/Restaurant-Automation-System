@@ -1,10 +1,11 @@
 // index.js
 const express = require('express')
 const app = express()
+const cors = require('cors');
 const port = 5000
 const connectToMongo = require('./db'); // mongoDB got replaced with connectToMongo
 // const mongoose = require('mongoose');
-
+app.use(cors());
 app.get('/',(req , res) => {
     res.send(`
         <p>'Hello world'</p>
@@ -27,7 +28,7 @@ app.use(express.json())
 app.use('/api', require("./Routes/CreateUser"));
 app.use('/api', require("./Routes/DisplayData")); 
 
-// app.use('/api', require("./Routes/OrderData")); // Error is coming from this statement
+app.use('/api', require("./Routes/DisplayOrderData")); // Error is coming from this statement   : small letter 'o' in in Cart.js at line 28
 
 app.use('/api', require("./Routes/AddFoodItem"));
 app.use('/api', require("./Routes/AddFoodCategory"));

@@ -53,6 +53,36 @@ router.post('/myOrderData', async (req, res) => {
 
 });
 
+
+
+
+// Route to get all orders
+router.get('/getAllOrders', async (req, res) => {
+    try {
+        const allOrders = await Order.find(); // Fetch all orders from the database
+        res.json(allOrders);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Server Error", error.message);
+    }
+});
+
+// code changes from here 
+
+router.post('/myorderData', async (req, res) => {
+    try{
+        let myData = await Orders.findOne({'email' : req.body.email})
+        res.json({orderData:myData})
+    } catch(error) {
+        res.send("Server Error" , error.message)
+    }
+})
+
+
+    // code changes from here 
+
+
+
 module.exports = router
 
 // module.exports = router;

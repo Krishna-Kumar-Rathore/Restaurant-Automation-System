@@ -1,0 +1,81 @@
+/* admin.css */
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+    padding: 15px;
+  }
+  
+  .navbar-brand img {
+    height: 50px;
+    width: auto;
+    margin-left: 10px;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  
+  /* Orders Section */
+  .orders-section {
+    padding: 20px;
+  }
+  
+  .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-title {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .list-group-item {
+    border: none;
+    background: #f8f9fa;
+  }
+  
+  .list-group-item strong {
+    color: #495057;
+  }
+  
+  .badge {
+    font-size: 1rem;
+  }
+  
+  /* Loading Indicator */
+  .loading-indicator {
+    font-size: 1.5rem;
+    color: #fff;
+  }
+  
+  /* Employee Section */
+  .employee-card img {
+    border: 5px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+  }
+  
+  .employee-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .employee-card h5 {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .employee-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+  

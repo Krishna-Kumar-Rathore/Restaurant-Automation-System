@@ -16,6 +16,7 @@ import { CartProvider } from './Components/ContextReducer.js';
 // import Admin from './screens/Admin.jsx';
 import Admin from './screens/Admin.jsx';
 import AddFoodItems from './screens/AddFoodItems.jsx';
+import MyOrder from './screens/MyOrder.jsx';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         <Route exact path='/createUser' element={<Signup/>} />
         <Route exact path= '/admin' element={<Admin/>} />
         <Route exact path= '/addFoodItem' element={<AddFoodItems/>} />
+        <Route exact path= '/myOrder' element={<MyOrder/>} />
+        
+
 
        
       </Routes>
