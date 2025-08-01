@@ -16,15 +16,18 @@ dotenv.config();
 
 const app = express();
 
+// Update CORS configuration
 app.use(cors({
   origin: [
-    'http://localhost:3000',
-    'https://your-actual-app-name.vercel.app' // Your real Vercel URL
+    'http://localhost:3000', // Local development
+    'https://restaurant-automation-system-pi.vercel.app', // Primary Vercel URL
+    'https://restaurant-automatio-git-da118e-krishna-kumar-rathores-projects.vercel.app',
+    'https://restaurant-automation-system-9rr045x5p.vercel.app'
   ],
   credentials: true
 }));
 
-// Serve static files in production
+// Serve static files in production  
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
