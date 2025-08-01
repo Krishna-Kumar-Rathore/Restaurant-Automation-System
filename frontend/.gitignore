@@ -1,0 +1,31 @@
+# Environment variables (CONTAINS API URLS)
+.env
+.env.local
+.env.production
+.env.development.local
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+
+Notes.txt
