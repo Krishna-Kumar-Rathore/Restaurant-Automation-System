@@ -16,7 +16,7 @@ dotenv.config();
 
 const app = express();
 
-// Update CORS configuration
+// Update CORS configuration for Vercel
 app.use(cors({
   origin: [
     'http://localhost:3000', // Local development

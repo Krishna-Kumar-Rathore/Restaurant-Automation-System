@@ -22,14 +22,5 @@
       "src": "/(.*)",
       "dest": "frontend/dist/$1"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "VITE_API_URL": "https://restaurant-automation-system-pi.vercel.app/api"
-    }
-  }
+  ]
 }
