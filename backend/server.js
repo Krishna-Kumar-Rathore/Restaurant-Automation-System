@@ -14,7 +14,7 @@ const adminRoutes = require('./routes/adminRoutes');
 
 dotenv.config();
 
-const app = express();
+const app = express(); 
 
 // Update CORS configuration for Vercel
 app.use(cors({
