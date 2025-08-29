@@ -203,7 +203,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="p-6 mt-8 bg-white rounded-lg shadow-md">
+      {/* <div className="p-6 mt-8 bg-white rounded-lg shadow-md">
         <h2 className="mb-4 text-xl font-semibold text-gray-900">Quick Actions</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <Link
@@ -238,7 +238,7 @@ const AdminDashboard = () => {
             <p className="text-sm font-medium text-gray-600">View Reports</p>
           </Link>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

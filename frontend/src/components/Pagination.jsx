@@ -20,19 +20,21 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="flex items-center justify-center mt-8 space-x-2">
+      {/* Previous Button */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="p-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+        className="p-2 transition-colors duration-200 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
       >
         <FiChevronLeft className="w-5 h-5" />
       </button>
 
+      {/* Page Numbers */}
       {pages.map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-4 py-2 rounded-lg border ${
+          className={`px-4 py-2 rounded-lg border transition-colors duration-200 ${
             page === currentPage
               ? 'bg-primary-600 text-white border-primary-600'
               : 'border-gray-300 hover:bg-gray-50'
@@ -42,9 +44,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </button>
       ))}
 
+      {/* Next Button - FIXED */}
       <button
-        onClick={() => onPageChange(currentPage === totalPages ? 1 : currentPage + 1)}
-        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className="p-2 transition-colors duration-200 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
       >
         <FiChevronRight className="w-5 h-5" />
       </button>

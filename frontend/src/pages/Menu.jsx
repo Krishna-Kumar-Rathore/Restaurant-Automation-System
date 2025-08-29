@@ -32,11 +32,18 @@ const Menu = () => {
       limit: 12
     }
     
-    // Remove empty values
+    // Remove empty values but keep page even if it's 1
     Object.keys(params).forEach(key => {
-      if (!params[key]) delete params[key]
+      if (!params[key] && key !== 'page') delete params[key]
     })
 
+    // Ensure page is sent as a number
+    if (params.page) {
+      params.page = parseInt(params.page)
+    }
+
+    console.log('API Request params:', params) // Keep this for debugging
+    
     dispatch(getFoods(params))
     
     // Update URL params
@@ -62,19 +69,20 @@ const Menu = () => {
   }
 
   const handlePageChange = (page) => {
+    console.log(`Changing to page: ${page}`) // Keep this for debugging
     setFilters(prev => ({ ...prev, page }))
   }
 
   return (
     <div className="page-container">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Our Menu</h1>
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">Our Menu</h1>
         <p className="text-gray-600">Discover our delicious collection of dishes</p>
       </div>
 
       {/* Search and Filters */}
       <div className="mb-8 space-y-4">
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col gap-4 md:flex-row">
           <div className="flex-1">
             <SearchBar onSearch={handleSearch} />
           </div>
@@ -122,19 +130,20 @@ const Menu = () => {
           <LoadingSpinner size="large" />
         </div>
       ) : foods.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No food items found</p>
+        <div className="py-12 text-center">
+          <p className="text-lg text-gray-500">No food items found</p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {foods.map((food) => (
               <FoodCard key={food._id} food={food} />
             ))}
           </div>
 
+          {/* FIXED: Use local filters.page for reliable pagination */}
           <Pagination
-            currentPage={currentPage}
+            currentPage={filters.page}
             totalPages={totalPages}
             onPageChange={handlePageChange}
           />
