@@ -6,6 +6,7 @@ import { getCurrentUser } from './redux/slices/authSlice'
 
 // Components
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
 import LoadingSpinner from './components/LoadingSpinner'
@@ -129,6 +130,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }

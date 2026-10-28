@@ -1,10 +1,12 @@
-// src/utils/api.js (Simplified - No JWT)
+// src/utils/api.js
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const localDevApiUrl = 'http://localhost:5000/api'
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
+const API_URL = configuredApiUrl || (import.meta.env.DEV ? localDevApiUrl : '/api')
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_URL.replace(/\/+$/, ''),
 })
 
 // Request interceptor to add user ID

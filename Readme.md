@@ -21,6 +21,33 @@ A full-stack web application for restaurant management with customer ordering an
 - Node.js (v14+)
 - MongoDB (local or Atlas)
 
+### Production deployment notes
+For hosted deployments such as Vercel or Netlify, do not leave the frontend pointing to `http://localhost:5000/api`.
+
+Set the frontend environment variable in the hosting platform:
+
+```bash
+VITE_API_URL=https://your-backend-domain.com/api
+```
+
+For the backend, set these values in the deployment environment:
+
+```bash
+PORT=5000
+MONGODB_URI=your-mongodb-connection-string
+FRONTEND_URL=https://your-frontend-domain.com
+CLIENT_URL=https://your-frontend-domain.com
+```
+
+This prevents the browser from calling localhost when the app is deployed live.
+
+### Vercel Web Analytics
+The frontend includes the Vercel Analytics React component to collect visitor and page-view data. To view analytics for a Vercel deployment:
+
+1. Open the project in the Vercel dashboard and enable **Web Analytics** from the **Analytics** tab.
+2. Redeploy the frontend after enabling it.
+3. Use the Analytics tab to view visitors and page views. Data is reported per Vercel project/deployment domain.
+
 ### Installation
 
 1. **Clone the repository**
