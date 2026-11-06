@@ -29,3 +29,5 @@ Thumbs.db
 
 # MongoDB backup files
 mongodb-backup/
+# Python virtual environment
+.venv/
