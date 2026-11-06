@@ -16,17 +16,6 @@ dotenv.config();
 
 const app = express(); 
 
-// Update CORS configuration for Vercel
-app.use(cors({
-  origin: [
-    'http://localhost:3000', // Local development
-    'https://restaurant-automation-system-pi.vercel.app', // Primary Vercel URL
-    'https://restaurant-automatio-git-da118e-krishna-kumar-rathores-projects.vercel.app',
-    'https://restaurant-automation-system-9rr045x5p.vercel.app'
-  ],
-  credentials: true
-}));
-
 // Serve static files in production  
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
@@ -88,7 +77,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Vercel runs the exported app as a serverless function, so only listen locally
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
